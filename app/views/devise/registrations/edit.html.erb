@@ -1,0 +1,66 @@
+
+<%= form_for :registration do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :photo %><br>
+    <%= f.text_field :photo %>
+  </p>
+
+  <p>
+    <%= f.label :twitter_url %><br>
+    <%= f.text_field :twitter %>
+  </p>
+
+  <p>
+    <%= f.label :Facebook_url %><br>
+    <%= f.text_field :facebook %>
+  </p>
+
+  <p>
+    <%= f.label :instagram_url %><br>
+    <%= f.text_field :instagram %>
+  </p>
+
+  <p>
+    <%= f.label :youtube_url %><br>
+    <%= f.text_field :youtube %>
+  </p>
+
+  <p>
+    <%= f.label :custom_link %><br>
+    <%= f.text_field :customLink %>
+  </p>
+
+  <p>
+    <%= f.label :Bank_account_number %><br>
+    <%= f.text_field :bankNum %>
+  </p>
+
+  <p>
+    <%= f.label :Bank_routting_number %><br>
+    <%= f.text_field :bankRoutting %>
+  </p>
+
+  <p>
+    <%= f.label :change_password_to %><br>
+    <%= f.text_field :password %>
+  </p>
+
+  <p>
+    <%= f.label :Current_password_confirmation %><br>
+    <%= f.text_field :password_confirmation %>
+  </p>
+
+  <p>
+    <%= f.submit "Update"%>
+  </p>
+<% end %>

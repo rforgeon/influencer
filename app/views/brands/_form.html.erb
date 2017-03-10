@@ -1,0 +1,53 @@
+<%= form_for brand do |f| %>
+    <%if brand.errors.any?%>
+      <div class = "alert alert-danger">
+        <h4><%= pluralize(brand.errors.count, "error")%>.</h4>
+        <ul>
+          <% brand.errors.full_messages.each do |msg|%>
+            <li><%=msg%></li>
+          <%end%>
+        </ul>
+      </div>
+    <%end%>
+    <%= form_group_tag(brand.errors[:companyName]) do %>
+     <%= f.label :companyName %>
+     <%= f.text_field :companyName, class: 'form-control' , placeholder: "Enter Brand Name", :required => true %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:photo]) do %>
+     <%= f.label :photo %>
+     <%= f.text_field :photo, class: 'form-control', placeholder: "Enter Photo URL" %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:description]) do %>
+     <%= f.label :description %>
+     <%= f.text_area :description, class: 'form-control', placeholder: "Enter Short Description", :required => true %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:campaignURL]) do %>
+     <%= f.label :campaignURL %>
+     <%= f.text_field :campaignURL, class: 'form-control', placeholder: "Enter Landing Page URL", :required => true %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:giftDescription]) do %>
+     <%= f.label :giftDescription %>
+     <%= f.text_area :giftDescription, class: 'form-control', placeholder: "Enter Gift Description" %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:giftReferralThreshold]) do %>
+     <%= f.label :giftReferralThreshold %>
+     <%= f.text_field :giftReferralThreshold, class: 'form-control', placeholder: "Enter number of refferals needed to receive gift" %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:sponsorSalesPercent]) do %>
+     <%= f.label :sponsorSalesPercent %>
+     <%= f.number_field :sponsorSalesPercent, class: 'form-control', placeholder: "Enter % of sales awarded to the sponsor of referred link" %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:bankNum]) do %>
+     <%= f.label :bankNum %>
+     <%= f.text_field :bankNum, class: 'form-control', placeholder: "Bank Number" %>
+    <%end%>
+    <%= form_group_tag(brand.errors[:bankRoutting]) do %>
+     <%= f.label :bankRoutting %>
+     <%= f.text_field :bankRoutting, class: 'form-control', placeholder: "Bank Routting" %>
+    <%end%>
+
+
+   <div class="form-group">
+     <%= f.submit "Save", class: 'btn btn-success' %>
+   </div>
+ <% end %>

@@ -1,0 +1,22 @@
+<h1>Brands</h1>
+
+<div class="row">
+  <div class="col-md-8">
+      <%@brands.each do |brand| %>
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              <div>
+                <%= link_to brand.companyName, brand %>
+                <%= brand.description %>
+              </div>
+            </h4>
+          </div>
+        </div>
+      <% end %>
+
+  <div style="margin-top:20px">
+    <%= link_to "New brand", new_brand_path, class: 'btn btn-success' %>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  photo: MyString
+  domain: MyString
+  companyName: MyString
+  mainContactName: MyString
+  mainContactEmail: MyString
+  description: MyText
+  giftDescription: MyText
+  giftReferralThreshold: 1
+  sponsorSalesPercent: 1
+  bankNum: MyString
+  bankRoutting: MyString
+  campaignURL: MyString
+
+two:
+  photo: MyString
+  domain: MyString
+  companyName: MyString
+  mainContactName: MyString
+  mainContactEmail: MyString
+  description: MyText
+  giftDescription: MyText
+  giftReferralThreshold: 1
+  sponsorSalesPercent: 1
+  bankNum: MyString
+  bankRoutting: MyString
+  campaignURL: MyString
