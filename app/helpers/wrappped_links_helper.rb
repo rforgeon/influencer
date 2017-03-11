@@ -1,0 +1,2 @@
+module WrapppedLinksHelper
+end

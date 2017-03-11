@@ -10,6 +10,7 @@ class BrandsController < ApplicationController
     @brands = policy_scope(Brand)
   end
 
+
   def register
     @brand = Brand.find(params[:id])
 
@@ -17,6 +18,10 @@ class BrandsController < ApplicationController
 
   def show
     @brand = Brand.find(params[:id])
+  end
+
+  def benefits
+    @brand = Brand.find(params[:brand_id])
   end
 
   def new

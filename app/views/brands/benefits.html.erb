@@ -1,0 +1,28 @@
+<h1> <%=@brand.companyName%> Benefits</h1>
+
+<div>
+
+<h2> Supporter </h2>
+
+<p>Receive a</p>
+<h3> <%=@brand.giftDescription%></h3>
+<p>after</p>
+<p><span><h3><%=@brand.giftReferralThreshold%></span></h3> Link Licks</p>
+
+<br>
+<p>Sponsorship is granted on a case by case basis.<p>
+<p>Higher supporter activity may help sponsorship eligibility.</p>
+<small>Sponsorhip is not guaranteed.</small>
+
+<br>
+
+<h2> Sponsored </h2>
+
+<h3> <%=@brand.sponsorSalesPercent%>%</h3>
+<p>of sales from your link</p>
+
+</div>
+
+<br>
+
+<%= button_to 'Get Supporter Link', {:controller => "wrapped_links", :action => "create"} , :method=>:post  %>

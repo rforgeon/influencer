@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :collaborators
-  has_many :wrappedLinks       
+  has_many :wrapped_links       
 end
