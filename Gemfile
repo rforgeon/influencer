@@ -41,9 +41,33 @@ gem 'devise'
 #seed fake data
 gem 'faker'
 
+#fetch URL
+gem 'httparty'
+
+#secure data
+gem "figaro"
+
+#Google Analytics Client
+gem 'google-api-client', '~> 0.10'
+
+#Cors
+gem 'rack-cors'
+
+#bootstrap layouts
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+
+#in-app flash notifications
+gem "gritter", "1.2.0"
+
 group :development, :test do
+
+  #test code
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry'
+  gem 'pry-byebug'
+
 end
 
 group :development do

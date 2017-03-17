@@ -10,23 +10,48 @@
 
   <body>
 
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
 
-    <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-    <% end %>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <% if user_signed_in? %>
+        <strong><%= link_to current_user.name, current_user%></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+      <% end %>
+      <br>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <span class='hamburger-menu' onclick="openNav()">&#9776;</span>
+
 
     <%= yield %>
 
+    <%= js add_gritter(flash[:notice],
+      :title => "",
+      :image => "https://cldup.com/u6hMwj6oJN.png",
+      :notice => "https://cldup.com/u6hMwj6oJN.png",
+      :success => "https://cldup.com/wq7pWLAvy3.png",
+      :warning => "https://cldup.com/Hw1U7ucxVC.png",
+      :error => "https://cldup.com/8UBuTewqye.png",
+      :progress => 'https://cldup.com/u6hMwj6oJN.png',
+      sticky: false
+    ) %>
+
   </body>
 </html>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script>

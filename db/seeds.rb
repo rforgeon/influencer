@@ -1,6 +1,7 @@
 
 5.times do
    User.create!(
+   user_name: Faker::GameOfThrones.character.delete(' '),
    name: Faker::StarWars.character,
    photo: Faker::Avatar.image,
    email: Faker::Internet.email,

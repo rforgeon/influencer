@@ -7,12 +7,14 @@ class BrandsController < ApplicationController
   end
 
   def dashboard
-    @brands = policy_scope(Brand)
+    #@brands = policy_scope(Brand)
+    @brand = Brand.find(params[:brand_id])
+
   end
 
 
   def register
-    @brand = Brand.find(params[:id])
+    @brand = Brand.find(params[:brand_id])
 
   end
 
@@ -33,7 +35,7 @@ class BrandsController < ApplicationController
     #@brand.user_id = current_user.id #add mainUserID to brand model
 
     if @brand.save
-      redirect_to @brand, notice: "Your brand profile was created successfully."
+      redirect_to brand_register_path(@brand), notice: "Your brand was added successfully."
     else
       flash.now[:alert] = "Error creating brand profile. Please try again"
       render :new

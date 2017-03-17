@@ -9,5 +9,6 @@ class AddFieldsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :customLink, :string
     add_column :users, :bankNum, :string
     add_column :users, :bankRoutting, :string
+    add_column :users, :user_name, :string
   end
 end

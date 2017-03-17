@@ -25,4 +25,7 @@
 
 <br>
 
-<%= button_to 'Get Supporter Link', {:controller => "wrapped_links", :action => "create"} , :method=>:post  %>
+
+
+
+<%= button_to 'Get Supporter Link', {:controller => "wrapped_links", :action => "create", :brand_id => @brand.id, :user_id => @generatedUser },:method=>:post  %>

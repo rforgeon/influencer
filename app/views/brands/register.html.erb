@@ -1,0 +1,12 @@
+
+<h1>Register <%=@brand.companyName%></h1>
+
+<p>REGISTERED BADGE IMGAGE HERE</p>
+
+<h2>Before we take you to your brand dashboard, we recommend that you register your brand.</h2>
+
+<div class="col-md-8">
+    <%= render partial: 'form_register', locals: {brand: @brand} %>
+</div>
+
+<%=link_to "I don't have a company domain.", brand_dashboard_path(@brand)%>

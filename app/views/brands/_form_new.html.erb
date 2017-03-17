@@ -1,0 +1,37 @@
+<%= form_for brand do |f| %>
+    <%if brand.errors.any?%>
+      <div class = "alert alert-danger">
+        <h4><%= pluralize(brand.errors.count, "error")%>.</h4>
+        <ul>
+          <% brand.errors.full_messages.each do |msg|%>
+            <li><%=msg%></li>
+          <%end%>
+        </ul>
+      </div>
+    <%end%>
+    <%= form_group_tag(brand.errors[:companyName]) do %>
+     <%= f.label :companyName %>
+     <%= f.text_field :companyName, class: 'form-control' , placeholder: "Enter Brand Name", :required => true %>
+    <%end%>
+
+    <%= form_group_tag(brand.errors[:campaignURL]) do %>
+     <%= f.label :campaignURL %>
+     <%= f.text_field :campaignURL, class: 'form-control', placeholder: "Enter Landing Page URL", :required => true %>
+    <%end%>
+
+    <%= form_group_tag(brand.errors[:mainContactName]) do %>
+     <%= f.label :mainContactName %>
+     <%= f.text_field :mainContactName, class: 'form-control', placeholder: "Brand Manager's Name", :required => true %>
+    <%end%>
+
+    <%= form_group_tag(brand.errors[:mainContactEmail]) do %>
+     <%= f.label :mainContactEmail %>
+     <%= f.text_field :mainContactEmail, class: 'form-control', placeholder: "Brand Manager's Work Email", :required => true %>
+    <%end%>
+
+
+
+   <div class="form-group">
+     <%= f.submit "Add Brand", class: 'btn btn-success' %>
+   </div>
+ <% end %>
