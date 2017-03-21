@@ -25,7 +25,7 @@ class WrappedLinksController < ApplicationController
     :body => { :title =>  "#{@link.id}",
                :domain => domain_json[0],
                :slashtag => custom_link,
-               :destination => "#{@brand.campaignURL}"
+               :destination => "#{@brand.campaignURL}?id=#{@generatedUser}"
              }.to_json,
     :headers => { 'Content-Type' => 'application/json', 'apikey' => "#{accessToken}" } )
 
@@ -36,9 +36,9 @@ class WrappedLinksController < ApplicationController
     @link.rebrandly_id = json['linkId']
     @link.user_id = @generatedUser
     @link.brand_id = @brand.id
+    @link.is_sponsored = false
+    @link.sponsorship_percent = @brand.sponsorSalesPercent
     @link.rank = "Supporter"
-
-    #binding.pry
 
     if @link.save
       redirect_to user_path(@link.user_id), notice: "Your lickable link was created successfully."
@@ -49,6 +49,24 @@ class WrappedLinksController < ApplicationController
     end
 
   end
+
+  def edit
+    @wrapped_link = WrappedLink.find(params[:id])
+  end
+
+  def update
+    @wrapped_link = WrappedLink.find(params[:id])
+
+    @wrapped_link.assign_attributes(wrapped_link_params)
+
+    if @wrapped_link.save
+      flash[:notice] = "Sponsorship was updated."
+       redirect_to brand_dashboard_path(@wrapped_link.brand_id)
+     else
+       flash.now[:alert] = "Error saving sponsorship. Please try again."
+       render :edit
+     end
+   end
 
   def rebrandly_link(arg)
     accessToken = ENV['REBRANDLY_API_KEY']
@@ -72,8 +90,8 @@ class WrappedLinksController < ApplicationController
         :link,
         :user_id,
         :brand_id,
-        # :rebrandly_id,
-        # :rank
+        :is_sponsored,
+        :sponsorship_percent
       )
     end
 

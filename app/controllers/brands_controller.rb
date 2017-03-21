@@ -2,6 +2,10 @@ class BrandsController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:index,:show]
 
+  helper_method :get_user
+  helper_method :linkSales
+
+
   def index
     @brands = Brand.all
   end
@@ -9,6 +13,41 @@ class BrandsController < ApplicationController
   def dashboard
     #@brands = policy_scope(Brand)
     @brand = Brand.find(params[:brand_id])
+
+    @wrapped_links = WrappedLink.where(brand_id: params[:brand_id])
+
+    WrappedLink.reindex
+
+    @search_results = WrappedLink.search(params[:search]) unless params[:search].blank?
+    #, where: {brand_id: params[:brand_id]}
+
+    if @search_results == nil
+      @search_results = WrappedLink.where(brand_id: params[:brand_id])
+    end
+
+    @wrapped_links_sponsored = @wrapped_links.where(is_sponsored: true)
+
+    @wrapped_links_supporter = @wrapped_links.where(is_sponsored: false)
+
+    def get_user(id)
+       @user = User.where(id: id)
+       return @user
+    end
+
+    @totalLicks = @wrapped_links.sum(:link_clicks)
+
+    @startDate = (Date.today.beginning_of_month).strftime("%Y-%m-%d")
+    @endDate = Time.now.strftime("%Y-%m-%d")
+
+    #GA calls##
+    @gaController = GoogleAnalyticsController.new
+    def linkSales(link)
+      @link_earnings = @gaController.user_earnings_from_brand(link.user_id, link.brand_id, @startDate, @endDate)
+      return @link_earnings
+    end
+
+    @totalSales = @gaController.brand_sales_total(@brand.id, @startDate, @endDate)
+
 
   end
 
@@ -32,7 +71,7 @@ class BrandsController < ApplicationController
 
   def create
     @brand = Brand.new(brand_params)
-    #@brand.user_id = current_user.id #add mainUserID to brand model
+    @brand.user_id = current_user.id #add mainUserID to brand model
 
     if @brand.save
       redirect_to brand_register_path(@brand), notice: "Your brand was added successfully."
@@ -54,7 +93,7 @@ class BrandsController < ApplicationController
 
     if @brand.save
       flash[:notice] = "Brand profile was updated."
-       redirect_to dashboard
+       redirect_to brand_path(@brand)
      else
        flash.now[:alert] = "Error saving brand profile. Please try again."
        render :edit

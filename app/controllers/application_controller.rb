@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :current_user_brands
+
+
+  def current_user_brands
+    @brands = Brand.where(user_id: current_user.id)
+    return @brands
+  end
+
 
   protected
 

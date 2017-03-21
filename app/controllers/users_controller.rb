@@ -5,13 +5,14 @@ class UsersController < ApplicationController
 
   include WrapppedLinksHelper
 
+  helper_method :linkEarnings
+
   def show
 
 
     @user = User.find(params[:id])
 
     @wrapped_links = WrappedLink.where(user_id: params[:id])
-
 
     @wrapped_links.each do |link|
 
@@ -22,11 +23,16 @@ class UsersController < ApplicationController
       #Rebrandly Link Clicks
       my_link = rebrandly_link(link.rebrandly_id)
 
+
       rebrandly_clicks = my_link["clicks"]
 
       link.link_clicks = rebrandly_clicks
       link.save
     end
+
+    @wrapped_links_sponsored = @wrapped_links.where(is_sponsored: true)
+
+    @wrapped_links_supporter = @wrapped_links.where(is_sponsored: false)
 
   end
 
@@ -38,23 +44,37 @@ class UsersController < ApplicationController
 
     @wrapped_links = WrappedLink.where(user_id: params[:user_id])
 
+    @wrapped_links.each do |link|
+
+      #Rebrandly Link Clicks
+      my_link = rebrandly_link(link.rebrandly_id)
+
+      rebrandly_clicks = my_link["clicks"]
+      last_clicked = my_link["lastClickAt"]
+
+      link.link_clicks = rebrandly_clicks
+      link.last_clicked = last_clicked
+      link.save
+    end
+
+    @wrapped_links_sponsored = @wrapped_links.where(is_sponsored: true)
+
+    @wrapped_links_supporter = @wrapped_links.where(is_sponsored: false)
 
 
+    @startDate = (Date.today.beginning_of_month).strftime("%Y-%m-%d")
+    @endDate = Time.now.strftime("%Y-%m-%d")
+
+    #GA Sessions##
     @gaController = GoogleAnalyticsController.new
-    request = {report_requests:[
-              {metric:[{expession: "ga:metric2"}],
-             dimensions:[{name:"ga:dimension1"},{name:"ga:dimension3"}],
-             date_ranges:[{start_date: Date.today.beginning_of_month.strftime("%Y-%m-%d"), end_date: Time.now.strftime("%Y-%m-%d")}],
-             view_id:"ga:141580290",
-             filters_expression: "ga:dimension1==userID-Ralphy"
-    }]}
+    @total_earnings = @gaController.user_earnings_total(current_user.id,@startDate, @endDate)
 
-    #total_earnings = @gaController.ga_request('userID-Ralphy',Date.today.beginning_of_month.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d"))
-    total_earnings = @gaController.ga_request(request)
+    def linkEarnings(link)
+      @link_earnings = @gaController.user_earnings_from_brand(link.user_id, link.brand_id, @startDate, @endDate)
+      return @link_earnings
+    end
 
-    json = JSON.parse(response.to_json)
 
-    render json: json
 
   end
 

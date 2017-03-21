@@ -11,11 +11,16 @@
   <body>
 
 
-
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <% if user_signed_in? %>
         <strong><%= link_to current_user.name, current_user%></strong>.
+        <%= link_to "Discover Brands", brands_path  %>
+        <%@brands = current_user_brands%>
+        <%@brands.each do |brand| %>
+
+                  <%= link_to brand.companyName, brand_dashboard_path(brand) %>
+        <%end%>
         <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
         <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
       <% else %>

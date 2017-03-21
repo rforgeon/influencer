@@ -1,0 +1,26 @@
+<%= form_for wrapped_link do |f| %>
+    <%if wrapped_link.errors.any?%>
+      <div class = "alert alert-danger">
+        <h4><%= pluralize(wrapped_link.errors.count, "error")%>.</h4>
+        <ul>
+          <% wrapped_link.errors.full_messages.each do |msg|%>
+            <li><%=msg%></li>
+          <%end%>
+        </ul>
+      </div>
+    <%end%>
+    <%= form_group_tag(wrapped_link.errors[:is_sponsored]) do %>
+     <%= f.label :this_user_is_sponsored %>
+     <%= f.check_box :is_sponsored %>
+    <%end%>
+    <%= form_group_tag(wrapped_link.errors[:sponsorship_percent]) do %>
+     <%= f.label :percentage_of_sales %>
+     <%= f.number_field :sponsorship_percent, class: 'form-control', step: :any, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 1 }, placeholder: "Enter % of sales awarded to the sponsor of referred link (enter 0.03 => 3%)" %>
+    <%end%>
+
+    <p>By saving you agree to the Terms of Service.</p>
+
+   <div class="form-group">
+     <%= f.submit "Save", class: 'btn btn-success', data: { confirm: 'Are you sure you want to update this sponsorhip?' } %>
+   </div>
+ <% end %>

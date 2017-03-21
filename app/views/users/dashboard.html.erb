@@ -3,17 +3,51 @@
 
 <div class="row">
   <div class="col-md-8">
+    <% @date = Date.today  %>
+    <h3><%=@date.strftime("%B")%> Earnings</h3>
+    <h4><%=number_to_currency(@total_earnings)%></h4>
+
+
+    <%if @wrapped_links_sponsored.length > 0%>
+    <h2>Sponsores</h2>
+    <div class="row">
+      <div class="col-md-8">
+          <%@wrapped_links_sponsored.each do |wrapped_link| %>
+            <%@brand = Brand.find(wrapped_link.brand_id)%>
+            <div class="media">
+              <div class="media-body">
+                <h4 class="media-heading">
+                  <div>
+                    <%=link_to @brand.companyName%>
+                    <%= wrapped_link.link %>
+                    <p>Licks</p>
+                    <%= wrapped_link.link_clicks %>
+                    <p>Last Licked</p>
+                    <%= (wrapped_link.last_clicked).strftime("%b %d, %Y") %>
+                    <p>Earnings This Month</p>
+                    <%=number_to_currency(linkEarnings(wrapped_link))%>
+                    <%= link_to "Metrics", user_metrics_path(:brand_id => @brand.id ) %>
+                  </div>
+                </h4>
+              </div>
+            </div>
+          <% end %>
+    <%end%>
+
+
+      <h2>Supported Brands</h2>
       <%@wrapped_links.each do |wrapped_link| %>
         <%@brand = Brand.find(wrapped_link.brand_id)%>
         <div class="media">
           <div class="media-body">
             <h4 class="media-heading">
               <div>
-                <%= wrapped_link.link %>
                 <%=link_to @brand.companyName%>
-                <p>Licks This Month</p>
+                <%= wrapped_link.link %>
+                <p>Licks</p>
                 <%= wrapped_link.link_clicks %>
-                <p>Earnings This Month</p>
+                <p>Last Licked</p>
+                <%= (wrapped_link.last_clicked).strftime("%b %d, %Y") %>
                 <%= link_to "Metrics", user_metrics_path(:brand_id => @brand.id ) %>
               </div>
             </h4>

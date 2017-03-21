@@ -48,7 +48,7 @@ gem 'httparty'
 gem "figaro"
 
 #Google Analytics Client
-gem 'google-api-client', '~> 0.10'
+gem 'google-api-client'
 
 #Cors
 gem 'rack-cors'
@@ -59,6 +59,9 @@ gem 'autoprefixer-rails'
 
 #in-app flash notifications
 gem "gritter", "1.2.0"
+
+#elasticsearch
+gem 'searchkick'
 
 group :development, :test do
 

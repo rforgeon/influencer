@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(version: 20170315181419) do
     t.text     "description"
     t.text     "giftDescription"
     t.integer  "giftReferralThreshold"
-    t.integer  "sponsorSalesPercent"
+    t.decimal  "sponsorSalesPercent"
     t.string   "bankNum"
     t.string   "bankRoutting"
     t.string   "campaignURL"
+    t.uuid     "user_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.boolean  "registered"
@@ -74,10 +75,13 @@ ActiveRecord::Schema.define(version: 20170315181419) do
     t.string   "link"
     t.uuid     "user_id"
     t.uuid     "brand_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.boolean  "is_sponsored"
+    t.decimal  "sponsorship_percent"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "link_clicks"
     t.string   "rank"
+    t.date     "last_clicked"
     t.string   "rebrandly_id"
   end
 

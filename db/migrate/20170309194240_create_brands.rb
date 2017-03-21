@@ -9,10 +9,11 @@ class CreateBrands < ActiveRecord::Migration[5.0]
       t.text :description
       t.text :giftDescription
       t.integer :giftReferralThreshold
-      t.integer :sponsorSalesPercent
+      t.decimal :sponsorSalesPercent
       t.string :bankNum
       t.string :bankRoutting
       t.string :campaignURL
+      t.uuid :user_id
 
       t.timestamps
 

@@ -2,10 +2,11 @@
 
 <p>Username: <%=@user.user_name%> </p>
 
-
+<%if @wrapped_links_sponsored.length > 0%>
+<h2>Sponsores</h2>
 <div class="row">
   <div class="col-md-8">
-      <%@wrapped_links.each do |wrapped_link| %>
+      <%@wrapped_links_sponsored.each do |wrapped_link| %>
         <%@brand = Brand.find(wrapped_link.brand_id)%>
         <div class="media">
           <div class="media-body">
@@ -20,6 +21,26 @@
           </div>
         </div>
       <% end %>
+<%end%>
+
+  <h2>Supported Brands</h2>
+  <div class="row">
+    <div class="col-md-8">
+        <%@wrapped_links_supporter.each do |wrapped_link| %>
+          <%@brand = Brand.find(wrapped_link.brand_id)%>
+          <div class="media">
+            <div class="media-body">
+              <h4 class="media-heading">
+                <div>
+                  <%=link_to @brand.companyName, @brand%>
+                  <%= wrapped_link.link %>
+                  <p>Licks: <%= wrapped_link.link_clicks %></p>
+                  <%=link_to wrapped_link.rank, welcome_rankDescription_path%>
+                </div>
+              </h4>
+            </div>
+          </div>
+        <% end %>
 
 <%= link_to "Rank Description", welcome_rankDescription_path %>
 

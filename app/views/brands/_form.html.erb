@@ -35,7 +35,7 @@
     <%end%>
     <%= form_group_tag(brand.errors[:sponsorSalesPercent]) do %>
      <%= f.label :sponsorSalesPercent %>
-     <%= f.number_field :sponsorSalesPercent, class: 'form-control', placeholder: "Enter % of sales awarded to the sponsor of referred link" %>
+     <%= f.number_field :sponsorSalesPercent, class: 'form-control', step: :any, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 1 }, placeholder: "Enter % of sales awarded to the sponsor of referred link (enter 0.03 => 3%)" %>
     <%end%>
     <%= form_group_tag(brand.errors[:bankNum]) do %>
      <%= f.label :bankNum %>

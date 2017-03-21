@@ -1,1 +1,53 @@
 <h1> <%=@brand.companyName%> Dashboard</h1>
+
+<%= link_to "View Public Profile", brand_path(@brand), class: 'btn btn-primary' %>
+
+<%= link_to "Edit brand", edit_brand_path(@brand), class: 'btn btn-primary' %>
+
+<h2>Sales</h2>
+<%=number_to_currency(@totalSales)%>
+<h2>Licks</h2>
+<%=@totalLicks%>
+
+
+
+<%= form_tag(brand_dashboard_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search" %>
+<%= submit_tag "Search" %>
+<% end %>
+
+
+
+
+<table class=" table table-striped sortable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sales</th>
+      <th>Licks</th>
+      <th>Sponsorship</th>
+    </tr>
+  </thead>
+
+ <tbody>
+
+
+     <% @search_results.each do |link| %>
+       <tr>
+        <% user =  (get_user(link.user_id))[0]%>
+        <td><%= user.name %></td>
+        <td><%= number_to_currency(linkSales(link)) %></td>
+        <td><%= link.link_clicks %></td>
+        <td>
+          <%if link.is_sponsored%>
+            <%=(link.sponsorship_percent)*100%>%
+            <%=  link_to "Edit >", edit_wrapped_link_path(link), class: 'btn btn-primary' %>
+          <%else%>
+            <p>Supporter</p>
+            <%=  link_to "Sponsor >", edit_wrapped_link_path(link.id), class: 'btn btn-primary' %>
+          <%end%>
+        </td>
+      </tr>
+     <% end %>
+
+ </tbody>
