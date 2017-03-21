@@ -71,6 +71,13 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
 
+  #testing similar to Rspec
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+  gem 'rspec'
+
+
 end
 
 group :development do
