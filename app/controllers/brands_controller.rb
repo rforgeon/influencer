@@ -14,27 +14,25 @@ class BrandsController < ApplicationController
     #@brands = policy_scope(Brand)
     @brand = Brand.find(params[:brand_id])
 
-    @wrapped_links = WrappedLink.where(brand_id: params[:brand_id])
+    # @wrapped_links = WrappedLink.where(brand_id: params[:brand_id])
 
-    WrappedLink.reindex
 
-    @search_results = WrappedLink.search(params[:search]) unless params[:search].blank?
-    #, where: {brand_id: params[:brand_id]}
 
-    if @search_results == nil
-      @search_results = WrappedLink.where(brand_id: params[:brand_id])
+    # WrappedLink.reindex
+
+    if params[:search]
+      @wrapped_links = @brand.wrapped_links.search(params[:search]).order("created_at DESC")
+    else
+      @wrapped_links = @brand.wrapped_links
     end
+
+
 
     @wrapped_links_sponsored = @wrapped_links.where(is_sponsored: true)
 
     @wrapped_links_supporter = @wrapped_links.where(is_sponsored: false)
 
-    def get_user(id)
-       @user = User.where(id: id)
-       return @user
-    end
-
-    @totalLicks = @wrapped_links.sum(:link_clicks)
+    #@totalLicks = @wrapped_links.sum(:link_clicks)
 
     @startDate = (Date.today.beginning_of_month).strftime("%Y-%m-%d")
     @endDate = Time.now.strftime("%Y-%m-%d")

@@ -3,10 +3,13 @@ class WrappedLinksController < ApplicationController
 
 
   def create
-    @link = WrappedLink.new
 
     @brand = Brand.find(params[:brand_id])
-    @generatedUser = current_user.id
+    @generatedUser = current_user
+
+    @link = @generatedUser.wrapped_links.create(brand: @brand)
+
+    binding.pry
 
 
     accessToken = ENV['REBRANDLY_API_KEY']
@@ -25,7 +28,7 @@ class WrappedLinksController < ApplicationController
     :body => { :title =>  "#{@link.id}",
                :domain => domain_json[0],
                :slashtag => custom_link,
-               :destination => "#{@brand.campaignURL}?id=#{@generatedUser}"
+               :destination => "#{@brand.campaignURL}?id=#{@generatedUser.id}"
              }.to_json,
     :headers => { 'Content-Type' => 'application/json', 'apikey' => "#{accessToken}" } )
 
@@ -34,8 +37,6 @@ class WrappedLinksController < ApplicationController
 
     @link.link = json["shortUrl"]
     @link.rebrandly_id = json['linkId']
-    @link.user_id = @generatedUser
-    @link.brand_id = @brand.id
     @link.is_sponsored = false
     @link.sponsorship_percent = @brand.sponsorSalesPercent
     @link.rank = "Supporter"
@@ -88,8 +89,6 @@ class WrappedLinksController < ApplicationController
     def wrapped_link_params
       params.require(:wrapped_link).permit(
         :link,
-        :user_id,
-        :brand_id,
         :is_sponsored,
         :sponsorship_percent
       )

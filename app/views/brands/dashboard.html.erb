@@ -11,10 +11,10 @@
 
 
 
-<%= form_tag(brand_dashboard_path, :method => "get", id: "search-form") do %>
+<!-- <%= form_tag(brand_dashboard_path, :method => "get", id: "search-form") do %>
 <%= text_field_tag :search, params[:search], placeholder: "Search" %>
 <%= submit_tag "Search" %>
-<% end %>
+<% end %> -->
 
 
 
@@ -32,9 +32,9 @@
  <tbody>
 
 
-     <% @search_results.each do |link| %>
+     <% @wrapped_links.each do |link| %>
        <tr>
-        <% user =  (get_user(link.user_id))[0]%>
+        <% user = (link.user)%>
         <td><%= user.name %></td>
         <td><%= number_to_currency(linkSales(link)) %></td>
         <td><%= link.link_clicks %></td>

@@ -14,11 +14,9 @@ class UsersController < ApplicationController
 
     @wrapped_links = WrappedLink.where(user_id: params[:id])
 
-    @wrapped_links.each do |link|
+    # @wrapped_links = WrappedLink.user
 
-      ##GA Sessions##
-      # @gaController = GoogleAnalyticsController.new
-      # response = @gaController.sessions('userIDfiddle','brandIDfiddle')
+    @wrapped_links.each do |link|
 
       #Rebrandly Link Clicks
       my_link = rebrandly_link(link.rebrandly_id)
@@ -35,6 +33,8 @@ class UsersController < ApplicationController
     @wrapped_links_supporter = @wrapped_links.where(is_sponsored: false)
 
   end
+
+
 
 
 
@@ -98,9 +98,6 @@ class UsersController < ApplicationController
     return json
 
   end
-
-
-
 
 
 
