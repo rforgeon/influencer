@@ -63,6 +63,17 @@ gem "gritter", "1.2.0"
 #elasticsearch
 gem 'searchkick'
 
+#braintree payment processing
+gem 'braintree'
+
+#paypal sdk
+gem 'paypal-sdk-rest'
+
+#delayed jobs
+gem 'sidekiq'
+#schedule delayed jobs
+gem "sidekiq-cron", "~> 0.4.0"
+
 group :development, :test do
 
   #test code

@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20170315181419) do
     t.uuid     "user_id"
     t.uuid     "brand_id"
     t.boolean  "is_sponsored"
-    t.decimal  "sponsorship_percent"
+    t.float    "sponsorship_percent"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "link_clicks"

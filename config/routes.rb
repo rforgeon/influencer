@@ -27,5 +27,13 @@ Rails.application.routes.draw do
         get :sessions
       end
 
+  scope '/transaction', :controller => :transactions do
+    post :send_invoice
+    get :test
+  end
+
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+  mount Sidekiq::Web => '/sidekiq'
 
 end

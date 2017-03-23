@@ -5,7 +5,7 @@ class CreateWrappedLinks < ActiveRecord::Migration[5.0]
       t.uuid :user_id
       t.uuid :brand_id
       t.boolean :is_sponsored
-      t.decimal :sponsorship_percent
+      t.float :sponsorship_percent
 
       t.timestamps
 

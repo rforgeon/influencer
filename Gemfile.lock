@@ -46,6 +46,8 @@ GEM
     bcrypt (3.1.11)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    braintree (2.72.0)
+      builder (>= 2.0.0)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.13.0)
@@ -64,6 +66,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
     cucumber (2.4.0)
       builder (>= 2.1.2)
       cucumber-core (~> 1.5.0)
@@ -101,6 +104,8 @@ GEM
       faraday
       multi_json
     erubis (2.7.0)
+    et-orbi (1.0.1)
+      tzinfo
     execjs (2.7.0)
     faker (1.7.3)
       i18n (~> 0.5)
@@ -171,6 +176,9 @@ GEM
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     os (0.9.6)
+    paypal-sdk-rest (1.6.0)
+      multi_json (~> 1.0)
+      xml-simple
     pg (0.19.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -183,6 +191,8 @@ GEM
     puma (3.7.1)
     rack (2.0.1)
     rack-cors (0.4.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.2)
@@ -212,6 +222,9 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    redis (3.3.3)
+    redis-namespace (1.5.3)
+      redis (~> 3.0, >= 3.0.4)
     representable (3.0.3)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -232,6 +245,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    rufus-scheduler (3.4.0)
+      et-orbi (~> 1.0)
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -243,6 +258,15 @@ GEM
       activemodel (>= 4.1)
       elasticsearch (>= 1)
       hashie
+    sidekiq (4.2.10)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.2, >= 3.2.1)
+    sidekiq-cron (0.4.5)
+      redis-namespace (>= 1.5.2)
+      rufus-scheduler (>= 2.0.24)
+      sidekiq (>= 4.2.1)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -282,6 +306,7 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -291,6 +316,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
+  braintree
   byebug
   coffee-rails (~> 4.2)
   cucumber-rails
@@ -304,6 +330,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  paypal-sdk-rest
   pg (~> 0.18)
   pry
   pry-byebug
@@ -313,6 +340,8 @@ DEPENDENCIES
   rspec
   sass-rails (~> 5.0)
   searchkick
+  sidekiq
+  sidekiq-cron (~> 0.4.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

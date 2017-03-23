@@ -1,0 +1,31 @@
+test: &default
+
+  # Credentials for REST APIs
+  client_id: AfuuwIeGKMhampwTBVb2KBzUb5wc7OL4qxqj7RFSvEg0Jg8JvHMn6279n_U2PMcek5mdO_3-eS0l94hD
+  client_secret: EO18f3cOxHplHvuoiIovYB21936WFy7W6WoeVyDwZsqW0LwwwpA_zma0490s0bCiper1XzhDQiCs8xfm
+
+  # Mode can be 'live' or 'sandbox'
+  mode: sandbox
+
+  # Credentials for Classic APIs
+  app_id: APP-80W284485P519543T
+  username: rforgeon_api1.gmail.com
+  password: J5QKX4CUGGM5639D
+  signature: AFcWxV21C7fd0v3bYYYRCpSSRl31AistsgaryUf4aBSGB9fj0Ux0idYd
+  # # With Certificate
+  # cert_path: "config/cert_key.pem"
+  sandbox_email_address: Platform.sdk.seller@gmail.com
+    #rforgeon@gmail.com
+
+
+  # # IP Address
+  # ip_address: 127.0.0.1
+  # # HTTP Proxy
+  # http_proxy: http://proxy-ipaddress:3129/
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+  mode: live

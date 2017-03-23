@@ -92,7 +92,7 @@ class GoogleAnalyticsController < ApplicationController
 
   end
 
-  def brand_sales_from_reps(ga_brand_id, ga_user_id, startDate, endDate)
+  def brand_sales_from_rep(ga_brand_id, ga_user_id, startDate, endDate)
 
     request = {report_requests:[
               {metrics:[{expression:"ga:metric2"}],
@@ -109,6 +109,7 @@ class GoogleAnalyticsController < ApplicationController
     return json
 
   end
+
 
 
 end

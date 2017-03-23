@@ -5,6 +5,13 @@ class BrandsController < ApplicationController
   helper_method :get_user
   helper_method :linkSales
 
+  require "braintree"
+
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = ENV["braintree_merchant_id"]
+  Braintree::Configuration.public_key = ENV["braintree_public_key"]
+  Braintree::Configuration.private_key = ENV["braintree_private_key"]
+
 
   def index
     @brands = Brand.all
@@ -16,11 +23,9 @@ class BrandsController < ApplicationController
 
     # @wrapped_links = WrappedLink.where(brand_id: params[:brand_id])
 
-
-
     # WrappedLink.reindex
 
-    if params[:search]
+    if params[:search] && params[:search] != ''
       @wrapped_links = @brand.wrapped_links.search(params[:search]).order("created_at DESC")
     else
       @wrapped_links = @brand.wrapped_links
@@ -32,7 +37,7 @@ class BrandsController < ApplicationController
 
     @wrapped_links_supporter = @wrapped_links.where(is_sponsored: false)
 
-    #@totalLicks = @wrapped_links.sum(:link_clicks)
+    @totalLicks = @wrapped_links.sum(:link_clicks)
 
     @startDate = (Date.today.beginning_of_month).strftime("%Y-%m-%d")
     @endDate = Time.now.strftime("%Y-%m-%d")

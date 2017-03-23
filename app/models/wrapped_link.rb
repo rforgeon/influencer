@@ -6,7 +6,7 @@ class WrappedLink < ApplicationRecord
   # searchkick
 
   def self.search(search)
-    where("user_id ILIKE ?", "%#{search}%")
+    where(user_id: search)
   end
 
 
